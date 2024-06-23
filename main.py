@@ -4,7 +4,7 @@ from werkzeug.utils import secure_filename
 import cv2
 import os
 
-UPLOAD_FOLDER = 'static'
+UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'png', 'webp', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
@@ -33,6 +33,10 @@ def processImage(filename, operation):
             cv2.imwrite(newFilename, img)
             return newFilename
         case "cpng": 
+            newFilename = f"static/{filename.split('.')[0]}.png"
+            cv2.imwrite(newFilename, img)
+            return newFilename
+        case "cpdf": 
             newFilename = f"static/{filename.split('.')[0]}.png"
             cv2.imwrite(newFilename, img)
             return newFilename
