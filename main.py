@@ -1,15 +1,7 @@
-from flask import Flask, render_template, request, flash, redirect, url_for, session, send_from_directory
+from flask import Flask, render_template, request, flash, redirect,  send_from_directory
 from werkzeug.utils import secure_filename
 import cv2
 import os
-from pymongo import MongoClient
-from werkzeug.security import generate_password_hash, check_password_hash
-
-# MongoDB connection
-client = MongoClient('mongodb://localhost:27017')
-db = client['your_database_name']
-users_collection = db['users']
-
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'png', 'webp', 'jpg', 'jpeg', 'gif'}
 
