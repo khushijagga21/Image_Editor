@@ -41,7 +41,8 @@ def processImage(filename, operation):
             newFilename = f"static/{filename.split('.')[0]}.png"
             cv2.imwrite(newFilename, img)
             return newFilename
-    pass
+            pass
+
 
 @app.route("/")
 def home():
@@ -80,59 +81,9 @@ def edit():
 
     return render_template("index.html", processed_file=processed_file)
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        username = request.form['username']
-        password = request.form['password']
-        
-        # Check if username exists in MongoDB
-        user = users_collection.find_one({'username': username})
-        
-        if user and check_password_hash(user['password'], password):
-            # Correct credentials, set up session
-            session['logged_in'] = True
-            session['username'] = username
-            flash('Logged in successfully!')
-            return redirect(url_for('edit'))  # Redirect to edit page or dashboard
-        else:
-            flash('Invalid username or password')
-    
-    return render_template('login.html')
 
-@app.route("/logout")
-def logout():
-    # Clear session variables
-    session.pop('logged_in', None)
-    session.pop('username', None)
-    flash('Logged out successfully!')
-    return redirect(url_for('home'))
 
-@app.route("/signup", methods=["GET", "POST"])
-def signup():
-    if request.method == "POST":
-        username = request.form['username']
-        password = request.form['password']
-        
-        # Check if username already exists
-        if users_collection.find_one({'username': username}):
-            flash('Username already exists. Please choose another.')
-            return redirect(url_for('signup'))
-        
-        # Hash the password before storing
-        hashed_password = generate_password_hash(password, method='sha256')
-        
-        # Insert new user into MongoDB
-        new_user = {
-            'username': username,
-            'password': hashed_password
-        }
-        users_collection.insert_one(new_user)
-        
-        flash('Account created successfully! Please log in.')
-        return redirect(url_for('login'))
-    
-    return render_template('signup.html')
+
 
 @app.route("/download/<filename>")
 def download_file(filename):

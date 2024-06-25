@@ -234,7 +234,7 @@
                             <option value="cpng">Convert to PNG</option>
                             <option value="cjpg">Convert to JPG</option>
                             <option value="cgray">Convert to Grayscale</option>
-                            <option value="cpdf">Convert to PDF</option>
+                         
                             <option value="cwebp">Convert to Webp</option>
                         </select>
                     </div>
@@ -256,6 +256,28 @@
     </form>
 
     <div class="download-section">
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+     
+        {% for category, message in messages %} 
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success!</strong> {{ message | safe}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+
+    {% endif %}
+    {% endwith %}
+
+
+
+
+
+
+
+
+
         {% if processed_file %}
         <h2>Processed Image</h2>
         <a href="{{ url_for('static', filename=processed_file) }}" download class="download-btn">Download Image</a>
