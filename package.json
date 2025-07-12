@@ -2,4 +2,11 @@
   "dependencies": {
     "flask": "^0.2.10"
   }
+  "scripts": {
+  "start": "react-scripts start",
+  "build": "react-scripts build",
+  "test": "...",
+  ...
+}
+
 }
